@@ -24,7 +24,15 @@ class Cart(db.Model):
     quantity = db.Column(db.Integer, default=1)
     food = db.relationship('Food')
 
+class User(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(15), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    number = db.Column(db.String(15))
+    password = db.Column(db.String(100), nullable=False)
 
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/")
@@ -50,12 +58,39 @@ def contact():
         message = request.form["message"]
         print(name, email, subject, message)
 
+
     return render_template("contact.html")
 
 
 @app.route("/cart")
 def cart():
     return render_template("cart.html")
+
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+
+    if request.method == "POST":
+         
+            first_name = request.form["first_name"]
+            email = request.form["email"]
+            number = request.form["number"]
+            password = request.form["password"]  
+
+            new_user = User(
+                first_name = first_name,
+                email=email,
+                number=number,
+                password=password )
+            
+            db.session.add(new_user)
+            db.session.commit()
+            flash("registration sucessfull")
+            return redirect(url_for("login"))
+
+    return render_template("register.html")
+
+
 
 @app.route("/login" ,methods=["GET", "POST"])
 def login():
