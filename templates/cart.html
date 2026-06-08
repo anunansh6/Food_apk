@@ -1,0 +1,68 @@
+{% extends 'food_base.html' %}
+
+{% block title %}
+<title>Foodie | Cart</title>
+{% endblock %}
+
+{% block content %}
+
+{% for item in cart_items %}
+<div class="cart-item">
+    <h3>{{ item.name }}</h3>
+    <span>₹{{ item.price }}</span>
+</div>
+{% endfor %}
+
+<section class="cart-section">
+
+    <h1>🛒 Your Cart</h1>
+    <p>Review your selected items before placing the order.</p>
+
+    <div class="cart-container">
+
+        <div class="cart-item">
+            <div>
+                <h3>🍔 Cheese Burger</h3>
+                <p>Quantity: 2</p>
+            </div>
+
+            <div>
+                <span>₹298</span>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <div>
+                <h3>🍕 Veg Pizza</h3>
+                <p>Quantity: 1</p>
+            </div>
+
+            <div>
+                <span>₹249</span>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <div>
+                <h3>🥤 Cold Coffee</h3>
+                <p>Quantity: 1</p>
+            </div>
+
+            <div>
+                <span>₹99</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="cart-summary">
+        <h2>Total: ₹646</h2>
+
+        <button class="checkout-btn">
+            ✅ Proceed to Checkout
+        </button>
+    </div>
+
+</section>
+
+{% endblock %}

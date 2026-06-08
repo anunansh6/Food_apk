@@ -1,0 +1,37 @@
+{% extends 'food_base.html' %}
+
+{% block title %}
+<title>Foodie | Contact</title>
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-section">
+
+    <h1>📞 Contact Us</h1>
+    <p>Have a question or feedback? We'd love to hear from you.</p>
+
+    <div class="contact-container">
+
+        <form class="contact-form" method="POST">
+
+            <input type="text" name="name" placeholder="Your Name" required>
+
+            <input type="email" name="email" placeholder="Your Email" required>
+
+            <input type="text" name="subject" placeholder="Subject" required>
+
+            <textarea name="message"
+                      rows="6"
+                      placeholder="Write your message here..."
+                      required></textarea>
+
+            <button type="submit">Send Message</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

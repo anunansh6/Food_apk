@@ -1,0 +1,35 @@
+{% extends 'food_base.html' %}
+
+{% block title %}
+<title>Foodie | Login</title>
+{% endblock %}
+
+{% block content %}
+
+<section class="login-section">
+
+    <div class="login-box">
+
+        <h1>🔐 Login</h1>
+        <p>Welcome back! Please login to continue</p>
+
+        <form method="POST" action="/login">
+
+            <input type="email" name="email" placeholder="Enter Email" required>
+
+            <input type="password" name="password" placeholder="Enter Password" required>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <p class="extra">
+            Don't have an account?
+            <a href="/register">Register</a>
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

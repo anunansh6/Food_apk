@@ -1,0 +1,85 @@
+{% extends 'food_base.html' %}
+
+{% block title %}
+<title>Foodie | Home</title>
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+
+        <h1>🍔 Fresh & Delicious Food Delivered Fast</h1>
+
+        <p>
+            Craving something tasty? Order your favorite burgers, pizzas,
+            momos, drinks and more from the comfort of your home.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/menu">
+                <button class="order-btn">🍕 Order Now</button>
+            </a>
+
+            <a href="/categories">
+                <button class="menu-btn">📋 View Menu</button>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<section class="features">
+
+    <div class="feature-card">
+        <h2>🚚 Fast Delivery</h2>
+        <p>Get your food delivered quickly at your doorstep.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>🍽️ Quality Food</h2>
+        <p>Fresh ingredients and hygienic preparation.</p>
+    </div>
+
+    <div class="feature-card">
+        <h2>💰 Best Prices</h2>
+        <p>Affordable meals with exciting offers.</p>
+    </div>
+
+</section>
+
+<section class="popular-food">
+
+    <h2>🔥 Popular Dishes</h2>
+
+    <div class="food-list">
+
+        <div class="food-card">
+            <h3>🍔 Cheese Burger</h3>
+            <p>Juicy burger with extra cheese.</p>
+            <span>₹149</span>
+        </div>
+
+        <div class="food-card">
+            <h3>🍕 Veg Pizza</h3>
+            <p>Loaded with fresh vegetables.</p>
+            <span>₹249</span>
+        </div>
+
+        <div class="food-card">
+            <h3>🍜 Noodles</h3>
+            <p>Spicy and delicious noodles.</p>
+            <span>₹129</span>
+        </div>
+
+        <div class="food-card">
+            <h3>🥤 Cold Coffee</h3>
+            <p>Refreshing chilled coffee.</p>
+            <span>₹99</span>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
