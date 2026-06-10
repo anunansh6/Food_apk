@@ -14,10 +14,11 @@ db = SQLAlchemy(app)
 
 class Food(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(100))
     name = db.Column(db.String(100))
     price = db.Column(db.Integer)
     image = db.Column(db.String(200))
-
+    description = db.Column(db.Text)
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     food_id = db.Column(db.Integer, db.ForeignKey('food.id'))
@@ -31,6 +32,7 @@ class User(db.Model,UserMixin):
     number = db.Column(db.String(15))
     password = db.Column(db.String(100), nullable=False)
 
+
 with app.app_context():
     db.create_all()
 
@@ -42,7 +44,8 @@ def home():
 
 @app.route("/menu")
 def menu(): 
-    return render_template("menu.html")
+    data = Food.query.all()
+    return render_template("menu.html", fe_data=data)
 
 @app.route("/categories")
 def categories():
@@ -103,3 +106,31 @@ def login():
         return redirect(url_for("menu"))
 
     return render_template("login.html")
+
+
+@app.route("/add_item", methods=["GET", "POST"])
+def add_item():
+    if request.method == "POST":
+        name = request.form.get("name")
+        price = request.form.get("price")
+        image = request.form.get("image")
+        description = request.form.get('description')
+        category = request.form.get("category")
+
+        item = Food(
+            name=name,
+            price=price,
+            image=image,
+            category=category,
+            description=description 
+        )
+
+        db.session.add(item)
+        db.session.commit()
+        flash("adding food sucessfull")
+        return redirect(url_for("add_item"))
+    return render_template("add_item.html")
+
+
+
+

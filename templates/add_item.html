@@ -1,0 +1,62 @@
+{% extends 'food_base.html' %}
+
+{% block title %}
+<title>Foodie | Home</title>
+{% endblock %}
+
+{% block content %}
+<section class="add-item-section">
+    
+    <h1>➕ Add New Food Item</h1>
+
+    <form action="{{ url_for('add_item') }}" method="POST" class="add-form">
+
+        <div class="form-group">
+            <label>Food Name</label>
+            <input type="text" name="name" placeholder="Enter food name" required>
+            </div>
+            
+        <div class="form-group">
+            <label>Category</label>
+            <select name="category" required>
+                <option value="">Select Category</option>
+                <option value="Burger">Burger</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Noodles">Noodles</option>
+                <option value="Fast Food">Fast Food</option>
+                <option value="Drinks">Drinks</option>
+                <option value="Desserts">Desserts</option>
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label>Price (₹)</label>
+            <input type="number" name="price" placeholder="Enter price" required>
+        </div>
+
+        <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" name="image" placeholder="Enter image URL">
+            </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="4"
+            placeholder="Enter food description"></textarea>
+            </div>
+            
+            <button type="submit" class="btn">
+                Add Item
+                </button>
+                
+                </form>
+                
+                </section>
+                
+
+
+
+
+
+
+{% endblock    %}

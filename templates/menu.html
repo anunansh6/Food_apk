@@ -8,44 +8,26 @@
 
 <section class="menu-section">
 
-    <h1>🍽️ Our Delicious Menu</h1>
-    <p>Choose your favorite food and order instantly</p>
+    {% for x in fe_data %}
+    <a href="/menu/{{ x.id }}">
+        <div class="profile-card">
 
-    <div class="menu-container">
+            <p><strong>Name:</strong> {{ x.name }}</p><br><br>
 
-        <div class="menu-card">
-            <img src="{{ url_for('static', filename='images/burger.jpg') }}">
-            <h3>Cheese Burger</h3>
-            <p>Juicy burger with extra cheese & fresh veggies</p>
-            <span>₹149</span>
-            <button>Add to Cart</button>
+            <p><strong>Price:</strong> {{ x.price }}</p><br><br>
+
+            <img src="{{ url_for('static', filename='images/' + x.image) }}" alt="{{ x.name }}">
+
+            <p><strong>Image:</strong> {{ x.image }}</p><br><br>
+
+            <p><strong>Description:</strong> {{ x.description }}</p><br><br>
+
+            <p><strong>Category:</strong> {{ x.category }}</p><br><br>
+
         </div>
-
-        <div class="menu-card">
-            <img src="{{ url_for('static', filename='images/pizza.jpg') }}">
-            <h3>Veg Pizza</h3>
-            <p>Loaded with cheese, capsicum & olives</p>
-            <span>₹249</span>
-            <button>Add to Cart</button>
-        </div>
-
-        <div class="menu-card">
-            <img src="{{ url_for('static', filename='images/noodles.jpg') }}">
-            <h3>Spicy Noodles</h3>
-            <p>Hot & spicy street style noodles</p>
-            <span>₹129</span>
-            <button>Add to Cart</button>
-        </div>
-
-        <div class="menu-card">
-            <img src="{{ url_for('static', filename='images/coldcoffee.jpg') }}">
-            <h3>Cold Coffee</h3>
-            <p>Chilled creamy coffee with ice</p>
-            <span>₹99</span>
-            <button>Add to Cart</button>
-        </div>
-
-    </div>
+    </a>
+    <br>
+    {% endfor %}
 
 </section>
 
