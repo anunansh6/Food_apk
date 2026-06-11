@@ -10,9 +10,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///food.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "675tyugheufft6ytgdvshtygvhsgv" #notsecret
 
+
+lm = LoginManager(app)
+lm.init_app(app) 
+lm.login_view = "login"   
+
 db = SQLAlchemy(app)
 
-class Food(db.Model, UserMixin):
+class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100))
     name = db.Column(db.String(100))
@@ -37,17 +42,30 @@ with app.app_context():
     db.create_all()
 
 
+@lm.user_loader
+def user_loader(id):
+    return User.query.get(int(id))
+
 @app.route("/")
 def home():
     return render_template("home.html")
 
 
 @app.route("/menu")
+@login_required
 def menu(): 
+
+    search = request.args.get("search","")
+    if search:
+         data = Food.query.filter(Food.name.contains(search))
+    else:
+         data = Food.query.all()
     data = Food.query.all()
-    return render_template("menu.html", fe_data=data)
+    return render_template("menu.html", fe_data=data, search=search)
+
 
 @app.route("/categories")
+@login_required
 def categories():
     return render_template("categories.html")
 
@@ -66,6 +84,7 @@ def contact():
 
 
 @app.route("/cart")
+@login_required
 def cart():
     return render_template("cart.html")
 
@@ -97,18 +116,26 @@ def register():
 
 @app.route("/login" ,methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-
-        print(email, password)  
-
-        return redirect(url_for("menu"))
-
-    return render_template("login.html")
-
+    if current_user.is_authenticated:
+         return redirect("/")
+    
+    if request.method == "GET":
+        return render_template("login.html")
+        
+    user = User.query.filter_by(email=request.form.get("email"),
+                                password=request.form.get("password")).first() 
+        
+    if user :
+            login_user(user)
+            flash ("login sucessfull")
+            return redirect("/")
+    else :
+            flash ("invalid email or password ")
+            return redirect("/login")
+    
 
 @app.route("/add_item", methods=["GET", "POST"])
+@login_required
 def add_item():
     if request.method == "POST":
         name = request.form.get("name")
@@ -131,6 +158,17 @@ def add_item():
         return redirect(url_for("add_item"))
     return render_template("add_item.html")
 
+@app.route("/logout")
+@login_required
+def logout():
+     logout_user()
+     flash ("user logout")
+     return redirect("/")
 
+
+
+@app.errorhandler(401)
+def page_not_found(error):
+     return render_template("/login.html")
 
 

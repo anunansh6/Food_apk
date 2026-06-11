@@ -6,29 +6,55 @@
 
 {% block content %}
 
-<section class="menu-section">
+<form method="GET" action="/menu" class="search-form">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search food..."
+        value="{{ search }}"
+    >
+    <button type="submit">🔍 Search</button>
+</form>
 
-    {% for x in fe_data %}
-    <a href="/menu/{{ x.id }}">
-        <div class="profile-card">
+{% for x in fe_data %}
+<div class="food-card">
 
-            <p><strong>Name:</strong> {{ x.name }}</p><br><br>
+    <div class="img-box">
+        <img src="{{ x.image }}" alt="{{ x.name }}" class="food-img">
 
-            <p><strong>Price:</strong> {{ x.price }}</p><br><br>
+        <span class="category-badge">
+            {{ x.category }}
+        </span>
 
-            <img src="{{ url_for('static', filename='images/' + x.image) }}" alt="{{ x.name }}">
+        <span class="heart">❤️</span>
+    </div>
 
-            <p><strong>Image:</strong> {{ x.image }}</p><br><br>
+    <div class="food-info">
 
-            <p><strong>Description:</strong> {{ x.description }}</p><br><br>
+        <h2>{{ x.name }}</h2>
 
-            <p><strong>Category:</strong> {{ x.category }}</p><br><br>
-
+        <div class="rating">
+            ⭐⭐⭐⭐⭐ <span>(4.8)</span>
         </div>
-    </a>
-    <br>
-    {% endfor %}
 
-</section>
+        <p class="desc">
+            {{ x.description }}
+        </p>
+
+        <div class="bottom-row">
+            <h3>₹{{ x.price }}</h3>
+
+            <a href="/menu/{{ x.id }}" class="cart-btn">
+                Add to Cart
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endfor %}
 
 {% endblock %}
+
+
+
