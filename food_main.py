@@ -24,11 +24,14 @@ class Food(db.Model):
     price = db.Column(db.Integer)
     image = db.Column(db.String(200))
     description = db.Column(db.Text)
+    user_id = db.Column(db.Integer)
+
+
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     food_id = db.Column(db.Integer, db.ForeignKey('food.id'))
     quantity = db.Column(db.Integer, default=1)
-    food = db.relationship('Food')
+    # food = db.relationship('Food')
 
 class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -149,7 +152,8 @@ def add_item():
             price=price,
             image=image,
             category=category,
-            description=description 
+            description=description, 
+            user_id=current_user.id
         )
 
         db.session.add(item)
